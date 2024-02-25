@@ -10,8 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State var todotextfield:String=""
     @State var todoList:[String]=[]
-    @State var IDidList:[String]=[]
-    @State var INotDidList:[String]=[]
+    @State var iDidList:[String]=[]
+    @State var iNotDidList:[String]=[]
    
     
     var body: some View {
@@ -75,9 +75,9 @@ struct ContentView: View {
                         
                     }
                    
-                    if !IDidList.isEmpty{//ıddlist boş olup olmadığını kontrol ediyoruz
+                    if !iDidList.isEmpty{//ıddlist boş olup olmadığını kontrol ediyoruz
                         Section(header:Text("I Did Lİst")){
-                            ForEach(IDidList,id:\.self){doneTodo in
+                            ForEach(iDidList,id:\.self){doneTodo in
                                 HStack{
                                     Text(doneTodo)
                                     Spacer()
@@ -86,34 +86,36 @@ struct ContentView: View {
                                 }
                                
                               
-                                if (todoList == [] && INotDidList == []){
+                         //       if (todoList == [] && INotDidList == []){
                                     
-                                    Button{
-                                        resetbutton(coco:doneTodo )
+                            //        Button{
+                            //            resetbutton(coco:doneTodo )
                                         
                                         
-                                    }label: {
-                                        Text("Reset")
-                                            .frame(maxWidth: .infinity)
-                                            .padding()
-                                            .background(.red.opacity(0.8))
-                                            .cornerRadius(5)
+                            //        }label: {
+                             //           Text("Reset")
+                              //              .frame(maxWidth: .infinity)
+                             //               .padding()
+                             //               .background(.red.opacity(0.8))
+                            //                .cornerRadius(5)
                                             
-                                    }
+                            //        }
                                         
                                     
                                     
-                                }
+                            //    }
+                                    
                             }
+                            .onDelete(perform:listDelate2)
                            
                         }
                         
                         
                     }
                     
-                    if !INotDidList.isEmpty{
+                    if !iNotDidList.isEmpty{
                         Section(header:Text("I didn't complete")){
-                            ForEach(INotDidList,id:\.self){
+                            ForEach(iNotDidList,id:\.self){
                                 donedodo in
                                 HStack{
                                     Text(donedodo)
@@ -136,6 +138,7 @@ struct ContentView: View {
                                 
                               
                             }
+                            .onDelete(perform:listDelate3)
                         }
                     }
                     
@@ -169,6 +172,15 @@ struct ContentView: View {
         todoList.remove(atOffsets: indexset)
     }
     
+    func listDelate2(indexset:IndexSet){
+        iDidList.remove(atOffsets: indexset)
+    }
+    
+    func listDelate3(indexset:IndexSet){
+        iNotDidList.remove(atOffsets: indexset)
+    }
+    
+    
     func butonNowClick() -> Bool{
         if todotextfield.count>=1{
             return true
@@ -182,32 +194,32 @@ struct ContentView: View {
     }
     func MarkAsDone(todo:String){
         if let index=todoList.firstIndex(of: todo){
-            IDidList.append(todo)//görevi ıdidlist içine aktarır
+            iDidList.append(todo)//görevi ıdidlist içine aktarır
             todoList.remove(at: index)//totodlist içinden listeyi siler
         }
     
     }
     func NotAsdone(dodo:String){
         if let index=todoList.firstIndex(of: dodo){
-            INotDidList.append(dodo)
+            iNotDidList.append(dodo)
             todoList.remove(at: index)
         }
     }
     
     func NotAsdoneOkey(lolo:String){
-        if let index = INotDidList.firstIndex(of: lolo){
-            IDidList.append(lolo)
-            INotDidList.remove(at: index)
+        if let index = iNotDidList.firstIndex(of: lolo){
+            iDidList.append(lolo)
+            iNotDidList.remove(at: index)
             
         }
         
     }
     
-    func resetbutton(coco:String){
-        if let index = IDidList.firstIndex(of: coco){
-            IDidList.remove(at: index)
-        }
-    }
+    //func resetbutton(coco:String){
+   //     if let index = IDidList.firstIndex(of: coco){
+    //        IDidList.remove(at: index)
+   //     }
+ //   }
    
     
     
