@@ -12,6 +12,8 @@ struct ContentView: View {
     @State var todoList:[String]=[]
     @State var IDidList:[String]=[]
     @State var INotDidList:[String]=[]
+   
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -59,7 +61,10 @@ struct ContentView: View {
                                         NotAsdone(dodo: todo)
                                     }label: {
                                         Label("Tamamlamadım", systemImage:"hand.thumbsdown.fill" )
+                                        
+                                       
                                     }
+                                  
                                     
                                 }
                                 
@@ -96,6 +101,20 @@ struct ContentView: View {
                                     Image(systemName: "checkmark.circle.trianglebadge.exclamationmark")
                                         .foregroundColor(.red)
                                 }
+                               
+                                .contextMenu{
+                                    Button{
+                                        
+                                        NotAsdoneOkey(lolo: donedodo)
+                                        
+                                        
+                                    }label: {
+                                        Label("Tamamladım", systemImage:"hand.thumbsup.fill")
+                                    }
+                                }
+                                  
+                                
+                              
                             }
                         }
                     }
@@ -153,6 +172,16 @@ struct ContentView: View {
             todoList.remove(at: index)
         }
     }
+    
+    func NotAsdoneOkey(lolo:String){
+        if let index = INotDidList.firstIndex(of: lolo){
+            IDidList.append(lolo)
+            INotDidList.remove(at: index)
+            
+        }
+        
+    }
+   
     
     
 }
