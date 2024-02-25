@@ -84,11 +84,31 @@ struct ContentView: View {
                                     Image(systemName: "checkmark.circle.fill")
                                         .foregroundColor(.blue)
                                 }
-                                
                                
-                                
+                              
+                                if (todoList == [] && INotDidList == []){
+                                    
+                                    Button{
+                                        resetbutton(coco:doneTodo )
+                                        
+                                        
+                                    }label: {
+                                        Text("Reset")
+                                            .frame(maxWidth: .infinity)
+                                            .padding()
+                                            .background(.red.opacity(0.8))
+                                            .cornerRadius(5)
+                                            
+                                    }
+                                        
+                                    
+                                    
+                                }
                             }
+                           
                         }
+                        
+                        
                     }
                     
                     if !INotDidList.isEmpty{
@@ -119,6 +139,7 @@ struct ContentView: View {
                         }
                     }
                     
+                  
                     
                     
                 }
@@ -180,6 +201,12 @@ struct ContentView: View {
             
         }
         
+    }
+    
+    func resetbutton(coco:String){
+        if let index = IDidList.firstIndex(of: coco){
+            IDidList.remove(at: index)
+        }
     }
    
     
